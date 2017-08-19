@@ -1,11 +1,22 @@
 {% extends "layout.html" %}
 {% block body %}
-<body>
-  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-    Button
-  </button>
+<div class="mdl-grid">
+	<div class="mdl-layout-spacer"></div>
+	<div class="mdl-cell mdl-cell--4-col mdh-expandable-search mdl-typography--text-center">
+		<i class="material-icons">search</i>
+		<form action="{{ url_for('search') }}" method="get" id="search-form">
+			<input class="mdl-textfield__input" name="search" placeholder="Search Here" autocomplete="on" autofocus="autofocus" type="text" size="1">
+		</form>
+	</div>
+	<div class="mdl-layout-spacer"></div>
+</div>
 
-  Click <a href="{{login_url}}">here</a> to log in.
-</body>
+
+<ul class="demo-list-two mdl-list" id="trips">
+	<div class="page">
+	</div>
+</ul>
+
+
 {% endblock %}
 

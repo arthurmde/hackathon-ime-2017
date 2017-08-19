@@ -28,6 +28,11 @@ def home():
     return render_template('home.html', login_url=(auth.get_login_url()))
 
 
+@app.route('/search')
+def search():
+    query = request.args('search')
+
+
 @app.route('/oauth')
 def auth_return():
     auth = mendeley.start_authorization_code_flow(state=session['state'])
