@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Mendeley Python Example</title>
-  </head>
-  <body>
-    Click <a href="{{login_url}}">here</a> to log in.
-  </body>
-</html>
+{% extends "layout.html" %}
+{% block body %}
+<body>
+  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+    Button
+  </button>
+
+  Click <a href="{{login_url}}">here</a> to log in.
+</body>
+{% endblock %}
+
