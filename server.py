@@ -16,6 +16,9 @@ app.secret_key = config['clientSecret']
 
 mendeley = Mendeley(config['clientId'], config['clientSecret'], REDIRECT_URI)
 
+@app.route('/chart')
+def chart():
+    return render_template('chart.html')
 
 @app.route('/')
 def home():
