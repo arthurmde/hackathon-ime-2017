@@ -1,2 +1,5 @@
 clientId:
 clientSecret:
+accessToken:
+refreshToken:
+redirectURI:
