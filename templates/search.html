@@ -42,7 +42,6 @@
 			<ul>
 				<li id="citations"></li>
 				<li id="hindex"></li>
-				<li id="email"></li>
 			</ul>
 		  </div>
 		  <div class="mdl-card__actions mdl-card--border">
@@ -62,7 +61,7 @@
 
 <script>
 	function createMap() {
-    function initMap(lat, lng, zoom) {
+    function initMap(researchers, lat, lng, zoom) {
       var map;
       var markers = [];
 
@@ -81,25 +80,23 @@
         element.show();
         element.find('#name').text(researcher['name']);
         element.find('#affiliation').text(researcher['affiliation']);
-        element.find('#citations').text("Citations: " + researcher['citations']);
+        element.find('#citations').text("Citations: " + researcher['total_citations']);
         element.find('#hindex').text("H-index: " + researcher['hindex']);
-        element.find('#email').text("email: " + researcher['email']);
-        if(researcher['scholar'] === undefined) {
+        if(researcher['scholar_url'] === undefined) {
           element.find('#scholar').hide();
         } else {
           element.find('#scholar').show();
           element.find('#scholar').attr("href", researcher['scholar']);
         }
-        element.find('#scopus').attr("href", researcher['scopus']);
+        element.find('#scopus').attr("href", researcher['scopus_url']);
       }
 
 
       function drawMarkers(researcher){
         // Construct the circle for each value in citymap.
         // Note: We scale the area of the circle based on the population.
-        console.log(researcher["position"])
           var marker = new google.maps.Marker({
-            position: researcher['position'],
+            position: {lat: -23, lng: -46},
             icon: {
               path: google.maps.SymbolPath.CIRCLE,
               fillOpacity: 0.5,
@@ -107,7 +104,7 @@
               strokeOpacity: 1.0,
               strokeColor: researcher['color'],
               strokeWeight: 3.0,
-              scale: researcher['scale'] //pixels
+              scale: researcher['hindex'] + 10 //pixels
             },
             map: map,
           });
@@ -121,41 +118,21 @@
 
       }
 
-      var researcher_1 = {
-        name: "Arthur de Moura Del Esposte",
-        affiliation: "Master Degree Student, University of São Paulo",
-        citations: 10,
-        hindex: 1,
-        email: "esposte@ime.usp.br",
-        scholar: "http://temp.com",
-        scopus: "http://temp.com",
-        position: {lat: 49.25, lng: -123.1},
-        color: '#ff0000',
-        scale: 12
-      };
-
-      var researcher_2 = {
-        name: "Fabio Kon",
-        affiliation: "Full Professor in Computer Science, University of São Paulo",
-        citations: 4500,
-        hindex: 10,
-        email: "kon@ime.usp.br",
-        scopus: "http://temp.com",
-        position: {lat: -23, lng: -46},
-        color: '#fff000',
-        scale: 110
-      };
       drawMap();
-      drawMarkers(researcher_1);
-      drawMarkers(researcher_2);
+
+			for(var researcher in researchers) {
+      	drawMarkers(researcher);
+			};
     }
 
     $( document ).ready(function() {
 			var lat = -23.545241799982602;
 			var lng = -46.63861848413944;
 			var zoom = 13;
-
-			initMap(lat, lng, zoom);
+      var researchers =  '{{params}}'
+			researchers = researchers.replace(/&#34;/g, "\"")
+      researchers = JSON.parse(researchers);
+			initMap(researchers, lat, lng, zoom);
 		});
 	}
 </script>

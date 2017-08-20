@@ -151,7 +151,7 @@ def home():
 def search():
     query = request.args.get('search')
     # params = colab_search(query)
-    params = remove_me()
+    params = json.dumps(remove_me())
     return render_template('search.html', params=params)
 
 
