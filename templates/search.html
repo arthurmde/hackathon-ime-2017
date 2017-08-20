@@ -90,6 +90,13 @@
           element.find('#scholar').attr("href", researcher['scholar_url']);
         }
         element.find('#scopus').attr("href", researcher['scopus_url']);
+
+
+				if(researcher['picture_url'] === undefined) {
+          element.find('.mdl-card__title').css("background-image", "url(../static/images/user.png)");;
+        } else {
+          element.find('.mdl-card__title').css("background-image", "url("+researcher['picture_url'].replace(/&amp;/g, "&")+")");
+        }
       }
 
 
