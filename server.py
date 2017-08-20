@@ -143,7 +143,8 @@ def home():
 
 
 @app.route('/search')
-def search(query):
+def search():
+    query = request.args.get('search')
     # params = colab_search(query)
     params = remove_me()
     return render_template('search.html', params=params)
