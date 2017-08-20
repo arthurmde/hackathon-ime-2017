@@ -88,7 +88,7 @@
           element.find('#scholar').show();
           element.find('#scholar').attr("href", researcher['scholar_url']);
         }
-        element.find('#scopus').attr("href", researcher['scopus_url']);
+        element.find('#scopus').attr("href", researcher['scopus_url'].replace(/&amp;/g, "&"));
 
 
 				if(researcher['picture_url'] === undefined) {
