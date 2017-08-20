@@ -127,19 +127,22 @@
 		</div>
 		<div style="display:none;" class="research-detail mdl-cell mdl-cell--3-col demo-card-square mdl-card mdl-shadow--2dp">
 		  <div class="mdl-card__title mdl-card--expand">
-			<h2 class="mdl-card__title-text">Researcher</h2>
+			<h2 class="mdl-card__title-text" id="name"></h2>
 		  </div>
 		  <div class="mdl-card__supporting-text">
 			<ul>
-				<li>Número de citações</li>
-				<li>H-index: 5</li>
-				<li>Fator de impacto</li>
-				<li>Universidade: USP</li>
+				<li id="affiliation"></li>
+				<li id="citations"></li>
+				<li id="hindex"></li>
+				<li id="email"></li>
 			</ul>
 		  </div>
 		  <div class="mdl-card__actions mdl-card--border">
-			<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-			  Google Scholar
+			<a id="scholar" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+				Google Scholar
+			</a>
+			<a id="scopus" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+				Scopus
 			</a>
 		  </div>
 		</div>
