@@ -62,6 +62,8 @@
       var map;
       var markers = [];
 			var geocoder = new google.maps.Geocoder();
+			var locations = []
+			var latlngbounds = new google.maps.LatLngBounds();
 
       function drawMap() {
         // Create the map.
@@ -102,6 +104,7 @@
         // Note: We scale the area of the circle based on the population.
 				geocoder.geocode({'address': researcher['affiliation']}, function(results, status) {
 					if (status === 'OK') {
+						locations.push(results[0].geometry.location);
 						var marker = new google.maps.Marker({
 							position: results[0].geometry.location,
 							icon: {
@@ -121,6 +124,13 @@
 							$('.map-caption').hide();
 							addCard(researcher);
 						});
+
+						locations.forEach(function(latLng){
+							latlngbounds.extend(latLng);
+						});
+
+						map.setCenter(latlngbounds.getCenter());
+						map.fitBounds(latlngbounds);
 					} else {
 						console.log("Failed to find location for " + researcher['affiliation']);
           }
