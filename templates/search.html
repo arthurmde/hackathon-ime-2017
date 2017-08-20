@@ -64,6 +64,7 @@
     function initMap(researchers, lat, lng, zoom) {
       var map;
       var markers = [];
+			var geocoder = new google.maps.Geocoder();
 
       function drawMap() {
         // Create the map.
@@ -86,7 +87,7 @@
           element.find('#scholar').hide();
         } else {
           element.find('#scholar').show();
-          element.find('#scholar').attr("href", researcher['scholar']);
+          element.find('#scholar').attr("href", researcher['scholar_url']);
         }
         element.find('#scopus').attr("href", researcher['scopus_url']);
       }
@@ -95,34 +96,38 @@
       function drawMarkers(researcher){
         // Construct the circle for each value in citymap.
         // Note: We scale the area of the circle based on the population.
-          var marker = new google.maps.Marker({
-            position: {lat: -23, lng: -46},
-            icon: {
-              path: google.maps.SymbolPath.CIRCLE,
-              fillOpacity: 0.5,
-              fillColor: researcher['color'],
-              strokeOpacity: 1.0,
-              strokeColor: researcher['color'],
-              strokeWeight: 3.0,
-              scale: researcher['hindex'] + 10 //pixels
-            },
-            map: map,
-          });
-
-        marker.addListener('click', function() {
-          map.setZoom(8);
-          map.setCenter(marker.getPosition());
-          $('.map-caption').hide();
-          addCard(researcher);
-        });
-
+				geocoder.geocode({'address': researcher['affiliation']}, function(results, status) {
+					if (status === 'OK') {
+						var marker = new google.maps.Marker({
+							position: results[0].geometry.location,
+							icon: {
+								path: google.maps.SymbolPath.CIRCLE,
+								fillOpacity: 0.5,
+								fillColor: researcher['color'],
+								strokeOpacity: 1.0,
+								strokeColor: researcher['color'],
+								strokeWeight: 3.0,
+								scale: researcher['hindex'] + 10 //pixels
+							},
+							map: map,
+						});
+						marker.addListener('click', function() {
+							map.setZoom(8);
+							map.setCenter(marker.getPosition());
+							$('.map-caption').hide();
+							addCard(researcher);
+						});
+					} else {
+						console.log("Failed to find location for " + researcher['affiliation']);
+          }
+			});
       }
 
-      drawMap();
 
-			for(var researcher in researchers) {
-      	drawMarkers(researcher);
-			};
+      drawMap();
+			for(var i=0; i < researchers.length; i++) {
+				drawMarkers(researchers[i]);
+			}
     }
 
     $( document ).ready(function() {
