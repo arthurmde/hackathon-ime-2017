@@ -62,14 +62,14 @@
       var map;
       var markers = [];
 			var geocoder = new google.maps.Geocoder();
-			var locations = []
-			var latlngbounds = new google.maps.LatLngBounds();
+			//var locations = []
+			//var latlngbounds = new google.maps.LatLngBounds();
 
       function drawMap() {
         // Create the map.
         map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: {lat: 37.090, lng: -95.712},
+          zoom: 2,
+          center: {lat: 25, lng: 0},
           mapTypeId: 'terrain'
         });
 
@@ -104,7 +104,7 @@
         // Note: We scale the area of the circle based on the population.
 				geocoder.geocode({'address': researcher['affiliation']}, function(results, status) {
 					if (status === 'OK') {
-						locations.push(results[0].geometry.location);
+						//locations.push(results[0].geometry.location);
 						var marker = new google.maps.Marker({
 							position: results[0].geometry.location,
 							icon: {
@@ -125,12 +125,14 @@
 							addCard(researcher);
 						});
 
-						locations.forEach(function(latLng){
-							latlngbounds.extend(latLng);
-						});
+            //if(locations.length > 7) {
+            //  locations.forEach(function(latLng){
+            //  latlngbounds.extend(latLng);
+            //  });
 
-						map.setCenter(latlngbounds.getCenter());
-						map.fitBounds(latlngbounds);
+            // map.setCenter(latlngbounds.getCenter());
+            //  map.fitBounds(latlngbounds);
+            //}
 					} else {
 						console.log("Failed to find location for " + researcher['affiliation']);
           }
