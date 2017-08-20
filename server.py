@@ -120,7 +120,7 @@ def colab_search(query, **kwargs):
             print('LOST DATA')
             return
         author_params['name'] = author_scopus_profile.name
-        author_params['affiliation'] = author_scopus_profile._current_affiliation
+        author_params['affiliation'] = author_scopus_profile._current_affiliation.split(',')[0]
         author_params['total_citations'] = author_scopus_profile.ncitations
         author_params['hindex'] = author_scopus_profile.hindex
         author_params['scopus_url'] = author_scopus_profile.scopus_url
@@ -201,7 +201,6 @@ def search():
     #params = json.dumps(remove_me())
     return render_template('search.html', params=params)
 
-# TODO: split no affiliation para localizAo
 # TODO: move thread pool
 # TODO: fix comma on queries
 
