@@ -115,7 +115,7 @@ def colab_search(query, **kwargs):
                 except requests.exceptions.HTTPError:
                     retries -= 1
             if author_scopus_profile == None:
-                continue
+                return
             author_params['name'] = author_scopus_profile.name
             author_params['affiliation'] = author_scopus_profile._current_affiliation
             author_params['total_citations'] = author_scopus_profile.ncitations
@@ -130,7 +130,7 @@ def colab_search(query, **kwargs):
                 except:
                     retries -= 1
             if author_scholar_profile is None:
-                continue
+                return
             author_params['scholar_url'] = 'https://scholar.google.com/citations?user=' + author_scholar_profile.id
             author_params['total_citations'] = author_scholar_profile.citedby
             author_params['interests'] = ', '.join(author_scholar_profile.interests)
