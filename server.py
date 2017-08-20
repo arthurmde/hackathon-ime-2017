@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.debug = True
 
 
-def profile_search(query):
+def search_profile(query):
     url = "https://api.mendeley.com/search/profiles"
     params = {'query': query,
               'limit': '20'  # default=20, max=100
@@ -19,11 +19,12 @@ def profile_search(query):
                "Authorization": "Bearer " + config['accessToken']}
     response = requests.get(url, headers=headers, params=params)
     if response.status_code != 200:
+        print('API ERROR:', response.status_code)
         return response.status_code
-    return response.content
+    return response.json()
 
 
-def catalog_search(query, **kwargs):
+def search_document(query, **kwargs):
     """
     You can use
         - min_year
@@ -46,8 +47,57 @@ def catalog_search(query, **kwargs):
 
     response = requests.get(url, headers=headers, params=params)
     if response.status_code != 200:
+        print('API ERROR:', response.status_code)
         return response.status_code
-    return response.content
+    return response.json()
+
+
+def get_document(document_id):
+    url = "https://api.mendeley.com/search/catalog/" + document_id
+    params = {'view': 'stats'  # return the read counts
+              }
+    headers = {'Accept': 'application/vnd.mendeley-document.1+json',
+               "Authorization": "Bearer " + config['accessToken']
+               }
+    response = requests.get(url, headers=headers, params=params)
+    if response.status_code != 200:
+        print('API ERROR:', response.status_code)
+        return response.status_code
+    return response.json()
+
+
+def get_profile(profile_id):
+    url = "https://api.mendeley.com/search/profiles/" + profile_id
+    headers = {'Accept': 'application/vnd.mendeley-document.1+json',
+               "Authorization": "Bearer " + config['accessToken']
+               }
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+        print('API ERROR:', response.status_code)
+        return response.status_code
+    return response.json()
+
+
+def colab_search(query, **kwargs):
+    publications = search_document(query, **kwargs)
+    authors = {}
+    print(len(publications))
+    for publication in publications:
+        # print(publication['title'])
+        # print('numero de autores:', len(publication['authors']))
+        # print('tipo:', publication['type'])
+        # There are buggy entries with thousands of authors, we do not want those
+        if len(publication['authors']) >= 10:
+            continue
+        for author in publication['authors']:
+            if 'first_name' in author:
+                # print(author['first_name'], author['last_name'])
+                author_profile = search_profile('%s+%s' % (author['first_name'], author['last_name']))[0]
+            else:
+                # print('NO FIRST NAME', author['last_name'])
+                author_profile = search_profile(author['last_name'])[0]
+            print(author_profile['id'])
+        # print()
 
 
 @app.route('/')
