@@ -8,10 +8,21 @@
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
     <style>
+
+.logo {
+  margin-top: 75px;
+  margin-left: 20px;
+}
+
+.center-items {
+  justify-content: center;
+}
+
 .mdh-expandable-search {
   margin: 0 50px;
   align-items: center;
   justify-content: center;
+  margin-top: 30px;
 }
 
 .mdh-expandable-search form {
@@ -52,7 +63,7 @@
   color: black;
   background-color: white;
   padding: 0px 35px 0px 70px;
-  height: 40px;
+  height: 50px;
   line-height: 40px; /* TODO: This was recommended for cross browser compatability of input height, check if its actually needed in modern browsers */
 
   border-radius: 5px 5px 5px 5px;
@@ -119,23 +130,9 @@
   <header class="mdl-layout__header mdl-layout__header--transparent mdl-layout__header--waterfall">
     <div class="mdl-layout__header-row">
       <!-- Title -->
-      <span class="mdl-layout-title">Title</span>
+      <span class="mdl-layout-title">ColabReSearch</span>
       <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
-      <!-- Search -->
-
-      <form action="">
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
-        <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
-          <i class="material-icons">search</i>
-        </label>
-        <div class="mdl-textfield__expandable-holder">
-          <input class="mdl-textfield__input" type="text" name="sample"
-                 id="fixed-header-drawer-exp" />
-        </div>
-      </div>
-      </form>
-
     </div>
   </header>
   <div class="mdl-layout__drawer">
@@ -155,7 +152,8 @@
 			</main>
 			<footer>
 				<div class="mdl-container mdl--text-center">
-					Made with ♥ by IME
+					Made with ♥ by IME -
+Science graphic by <a href="http://www.flaticon.com/authors/freepik">freepik</a> from <a href="http://www.flaticon.com/">Flaticon</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>. Check out the new logo that I created on <a href="http://logomakr.com" title="Logo Maker">LogoMaker.com</a> https://logomakr.com/7T2Jg77T2Jg7
 				</div>
 			</footer>
 		</div>
