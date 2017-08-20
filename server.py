@@ -59,7 +59,6 @@ def home():
 
 @app.route('/search')
 def search():
-    query = request.args('search')
     return render_template('search.html')
 
 
