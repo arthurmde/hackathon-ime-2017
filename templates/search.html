@@ -110,8 +110,22 @@
 		  </div>
 		</div>
 	</div>
-	<div class="mdl-grid">
-		<div class="mdl-cell mdl-cell--3-col demo-card-square mdl-card mdl-shadow--2dp">
+	<div class="mdl-grid map-info">
+		<div class="map-caption mdl-cell mdl-cell--3-col  mdl-card mdl-shadow--2dp">
+		  <div class="mdl-card__supporting-text">
+			<h4>Map Caption</h4>
+			<p>
+			See the location of the best ranked researchers in your search. The larger the circle, the higher the H-index of the researcher. The colors of the circles represent the relevance of the researcher considering the research parameters, as described below:
+			</p>
+			<ul>
+				<li style="color:green;">The best ranked researcher</li>
+				<li style="color:yellow;">From 2nd to 4th best ranked researchers</li>
+				<li style="color:orange;">From 5th to 7th best ranked researchers</li>
+				<li style="color:red;">From 8th to 10th best ranked researchers</li>
+			</ul>
+		  </div>
+		</div>
+		<div style="display:none;" class="research-detail mdl-cell mdl-cell--3-col demo-card-square mdl-card mdl-shadow--2dp">
 		  <div class="mdl-card__title mdl-card--expand">
 			<h2 class="mdl-card__title-text">Researcher</h2>
 		  </div>
@@ -136,15 +150,15 @@
 </body>
 
 <script>
-function createMap() {
-	$( document ).ready(function() {
-		var lat = -23.545241799982602;
-		var lng = -46.63861848413944;
-		var zoom = 13;
+	function createMap() {
+		$( document ).ready(function() {
+			var lat = -23.545241799982602;
+			var lng = -46.63861848413944;
+			var zoom = 13;
 
-		initMap(lat, lng, zoom);
-	});
-}
+			initMap(lat, lng, zoom);
+		});
+	}
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSJo3eSKJBoP-15HnFXVW7qybkQMTpXFw&libraries=visualization&callback=createMap" async defer></script>
