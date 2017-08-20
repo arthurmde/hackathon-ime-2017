@@ -17,9 +17,9 @@ function initMap(lat, lng, zoom) {
 			element.show();
 			element.find('#name').text(researcher['name']);
 			element.find('#affiliation').text(researcher['affiliation']);
-			element.find('#citations').text(researcher['citations']);
-			element.find('#hindex').text(researcher['hindex']);
-			element.find('#email').text(researcher['email']);
+			element.find('#citations').text("Citations: " + researcher['citations']);
+			element.find('#hindex').text("H-index: " + researcher['hindex']);
+			element.find('#email').text("email: " + researcher['email']);
 			if(researcher['scholar'] === undefined) {
 				element.find('#scholar').hide();
 			} else {
@@ -67,7 +67,7 @@ function initMap(lat, lng, zoom) {
 		scopus: "http://temp.com",
 		position: {lat: 49.25, lng: -123.1},
 		color: '#ff0000',
-		scale: 20
+		scale: 12
 	};
 
 	var researcher_2 = {
@@ -77,9 +77,9 @@ function initMap(lat, lng, zoom) {
 		hindex: 10,
 		email: "kon@ime.usp.br",
 		scopus: "http://temp.com",
-		position: {lat: 34.053, lng: -118.243},
+		position: {lat: -23, lng: -46},
 		color: '#fff000',
-		scale: 40
+		scale: 110
 	};
 	drawMap();
  	drawMarkers(researcher_1);
