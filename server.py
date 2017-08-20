@@ -23,13 +23,27 @@ def profile_search(query):
     return response.content
 
 
-def catalog_search(query):
+def catalog_search(query, **kwargs):
+    """
+    You can use
+        - min_year
+        - max_year
+    in kwargs to search
+    papers in specific ranges
+    """
     url = "https://api.mendeley.com/search/catalog"
     params = {'query': query,
-              'limit': '20'  # default=20, max=100
+              'limit': '20',  # default=20, max=100
               }
     headers = {'Accept': 'application/vnd.mendeley-document.1+json',
-               "Authorization": "Bearer " + config['accessToken']}
+               "Authorization": "Bearer " + config['accessToken']
+               }
+    if('min_year' in kwargs):
+        params['min_year'] = kwargs['min_year']
+
+    if('max_year' in kwargs):
+        params['max_year'] = kwargs['max_year']
+
     response = requests.get(url, headers=headers, params=params)
     if response.status_code != 200:
         return response.status_code
