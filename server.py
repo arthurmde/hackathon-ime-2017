@@ -100,44 +100,44 @@ def colab_search(query, **kwargs):
                 authors[scopus_id] = 0
             authors[scopus_id] += publication['reader_count']
     for scopus_id in sorted(authors, key=authors.get, reverse=True):
-        author_params = {}
         # usar 10 semafors, checar e pedir mais at'e termos 10
         if len(params) >= 10:
             break
         # THREADS
         def get_api_data(scopus_id):
-        retries=3
-        author_scopus_profile = None
-        while retries:
-            try:
-                author_scopus_profile = ScopusAuthor(scopus_id)
-                break
-            except requests.exceptions.HTTPError:
-                retries -= 1
-        if author_scopus_profile == None:
-            continue
-        author_params['name'] = author_scopus_profile.name
-        author_params['affiliation'] = author_scopus_profile._current_affiliation
-        author_params['total_citations'] = author_scopus_profile.ncitations
-        author_params['hindex'] = author_scopus_profile.hindex
-        author_params['scopus_url'] = author_scopus_profile.scopus_url
-        retries=3
-        author_scholar_profile = None
-        while retries:
-            try:
-                author_scholar_profile = next(scholarly.search_author("%s %s" % (author_scopus_profile.name, author_scopus_profile._current_affiliation.split(',')[0]))).fill()
-                break
-            except:
-                retries -= 1
-        if author_scholar_profile is None:
-            continue
-        author_params['scholar_url'] = 'https://scholar.google.com/citations?user=' + author_scholar_profile.id
-        author_params['total_citations'] = author_scholar_profile.citedby
-        author_params['interests'] = ', '.join(author_scholar_profile.interests)
-        author_params['picture_url'] = 'https://scholar.google.com' + author_scholar_profile.url_picture
-        author_params['hindex'] = author_scholar_profile.hindex
-        author_params['i10index'] = author_scholar_profile.i10index
-        params.append(author_params)
+            author_params = {}
+            retries=3
+            author_scopus_profile = None
+            while retries:
+                try:
+                    author_scopus_profile = ScopusAuthor(scopus_id)
+                    break
+                except requests.exceptions.HTTPError:
+                    retries -= 1
+            if author_scopus_profile == None:
+                continue
+            author_params['name'] = author_scopus_profile.name
+            author_params['affiliation'] = author_scopus_profile._current_affiliation
+            author_params['total_citations'] = author_scopus_profile.ncitations
+            author_params['hindex'] = author_scopus_profile.hindex
+            author_params['scopus_url'] = author_scopus_profile.scopus_url
+            retries=3
+            author_scholar_profile = None
+            while retries:
+                try:
+                    author_scholar_profile = next(scholarly.search_author("%s %s" % (author_scopus_profile.name, author_scopus_profile._current_affiliation.split(',')[0]))).fill()
+                    break
+                except:
+                    retries -= 1
+            if author_scholar_profile is None:
+                continue
+            author_params['scholar_url'] = 'https://scholar.google.com/citations?user=' + author_scholar_profile.id
+            author_params['total_citations'] = author_scholar_profile.citedby
+            author_params['interests'] = ', '.join(author_scholar_profile.interests)
+            author_params['picture_url'] = 'https://scholar.google.com' + author_scholar_profile.url_picture
+            author_params['hindex'] = author_scholar_profile.hindex
+            author_params['i10index'] = author_scholar_profile.i10index
+            params.append(author_params)
         #end THREADS
     return params
 
