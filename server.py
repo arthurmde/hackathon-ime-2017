@@ -98,9 +98,9 @@ def colab_search(query, **kwargs):
             author_params = {}
         author_scopus_profile = None
         author_params['scopus_id'] = scopus_id
-        if color_index == 0:
+        if color_index == 1:
             author_params['color'] = 'green'
-        elif color_index >= 1 and color_index <= 3:
+        elif color_index > 1 and color_index <= 3:
             author_params['color'] = 'yellow'
         elif color_index >= 4 and color_index <= 6:
             author_params['color'] = 'orange'
