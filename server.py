@@ -195,6 +195,10 @@ def save_author_in_db(author_params):
 def home():
     return render_template('home.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 
 @app.route('/search')
 def search():

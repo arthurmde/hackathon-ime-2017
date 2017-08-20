@@ -112,6 +112,11 @@
     color: #fff;
 }
 
+footer div {
+  color: white;
+  text-align: center;
+}
+
 .is-focused .mdl-textfield__input {
     border-color: #fff;
 }

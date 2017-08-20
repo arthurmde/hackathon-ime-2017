@@ -39,6 +39,7 @@
 			<ul>
 				<li id="citations"></li>
 				<li id="hindex"></li>
+				<li id="interests"></li>
 			</ul>
 		  </div>
 		  <div class="mdl-card__actions mdl-card--border">
@@ -89,6 +90,14 @@
           element.find('#scholar').attr("href", researcher['scholar_url']);
         }
         element.find('#scopus').attr("href", researcher['scopus_url'].replace(/&amp;/g, "&"));
+
+
+        if(researcher['interests'] === undefined) {
+          element.find('#interests').hide();
+        } else {
+          element.find('#interests').show();
+          element.find('#interests').text("Research Interests: " + researcher['interests']);
+        }
 
 
 				if(researcher['picture_url'] === undefined) {

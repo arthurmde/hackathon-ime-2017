@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+{% block body %}
+<style>
+.about .mdl-card__title {
+	background: none;
+	background-color: #FFA726;
+	height: 150px;
+	text-align: center;
+}
+
+.us .mdl-card__title {
+	background: none;
+	background-color: #FFA726;
+	height: 40px;
+	color: #FFA726;
+}
+.us .mdl-card__title {
+	text-align: center;
+}
+
+.about .mdl-card__title p {
+	font-size: 25px;
+	line-height: 30px;
+}
+
+.demo-card-image.mdl-card {
+  width: 256px;
+  height: 256px;
+}
+
+.demo-card-image > .mdl-card__actions {
+  height: 52px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.2);
+}
+.demo-card-image__filename {
+  color: #fff;
+  font-size: 20px;
+	font-weight: bold;
+}
+
+.us .mdl-card__title {
+	background: none;
+}
+
+.us .mdl-cell {
+	margin-top: -16px;
+}
+
+.us .demo-card-image.mdl-card.athos {
+  background: url('../static/images/athos.jpg') center / cover !important;
+}
+
+.us .demo-card-image.mdl-card.arthur {
+  background: url('../static/images/arthur.jpg') center / cover !important;
+}
+
+.us .demo-card-image.mdl-card.lucas {
+  background: url('../static/images/lucas.png') center / cover !important;
+}
+
+</style>
+
+<div class="mdl-grid about">
+	<div class="mdl-cell mdl-cell--10-col mdl-card--horizontal mdl-card mdl-shadow--4dp mdl-cell--1-offset">
+		<div class="mdl-card__title">
+			<p>We believe that collaboration is the key factor for impactful high-quality research. <b>CollabReSearch</b> is a platform to support you in the hard task of finding potential contributors to leverage your research and career!
+			</p>
+		</div>
+		<div class="mdl-card__actions mdl-card--border">
+			<a href="/" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+				Get started by looking for your research interest areas
+			</a>
+		</div>
+	</div>
+</div>
+<div class="mdl-grid us">
+	<div class="mdl-cell mdl-cell--8-col mdl-card--horizontal mdl-card mdl-shadow--4dp mdl-cell--2-offset">
+		<div class="mdl-card__title">
+			<h4>Team</h4>
+		</div>
+		<div class="mdl-card__actions mdl-card--border">
+			<div class="mdl-grid">
+				<div class="mdl-layout-spacer"></div>
+
+				<div class="athos demo-card-image mdl-card mdl-cell mdl-cell--3-col mdl-shadow--2dp">
+					<div class="mdl-card__title mdl-card--expand"></div>
+					<div class="mdl-card__actions">
+						<span class="demo-card-image__filename">Athos Ribeiro</span>
+					</div>
+				</div>
+				<div class="arthur demo-card-image mdl-card mdl-cell mdl-cell--3-col mdl-shadow--2dp">
+					<div class="mdl-card__title mdl-card--expand"></div>
+					<div class="mdl-card__actions">
+						<span class="demo-card-image__filename">Arthur Del Esposte</span>
+					</div>
+				</div>
+				<div class="lucas demo-card-image mdl-card mdl-cell mdl-cell--3-col mdl-shadow--2dp">
+					<div class="mdl-card__title mdl-card--expand"></div>
+					<div class="mdl-card__actions">
+						<span class="demo-card-image__filename">Lucas Kanashiro</span>
+					</div>
+				</div>
+			</div>
+			<div class="mdl-layout-spacer"></div>
+		</div>
+	</div>
+
+
+	{% endblock %}
