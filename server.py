@@ -5,6 +5,7 @@ import requests
 from scopus.scopus_author import ScopusAuthor
 import time
 import scholarly
+import threading
 
 with open('config.yml') as f:
     config = yaml.load(f)
@@ -100,8 +101,11 @@ def colab_search(query, **kwargs):
             authors[scopus_id] += publication['reader_count']
     for scopus_id in sorted(authors, key=authors.get, reverse=True):
         author_params = {}
+        # usar 10 semafors, checar e pedir mais at'e termos 10
         if len(params) >= 10:
             break
+        # THREADS
+        def get_api_data(scopus_id):
         retries=3
         author_scopus_profile = None
         while retries:
@@ -134,6 +138,7 @@ def colab_search(query, **kwargs):
         author_params['hindex'] = author_scholar_profile.hindex
         author_params['i10index'] = author_scholar_profile.i10index
         params.append(author_params)
+        #end THREADS
     return params
 
 
@@ -151,8 +156,7 @@ def search():
 
 
 def remove_me():
-    return [{'name': 'Marisol García Valls', 'affiliation': 'Universidad Carlos III de Madrid, Department of Telematic Engineering', 'total_citations': 2280, 'hindex': 26, 'scopus_url': 'https://www.scopus.com/authid/detail.uri?partnerID=HzOxMe3b&authorId=13806935900&origin=inward', 'scholar_url': 'https://scholar.google.com/citations?user=wo4qj4UAAAAJ', 'interests': 'Computer Science, Distributed Real-Time Systems, Large scale and reliable systems', 'picture_url': 'https://scholar.google.com/citations?view_op=view_photo&user=wo4qj4UAAAAJ&citpid=3', 'i10index': 59}]
-
+    return [{'name': 'Danda B. Rawat', 'affiliation': 'Howard University, Department of Electrical Engineering and Computer Science', 'total_citations': 1415, 'hindex': 21, 'scopus_url': 'https://www.scopus.com/authid/detail.uri?partnerID=HzOxMe3b&authorId=24725483600&origin=inward', 'scholar_url': 'https://scholar.google.com/citations?user=Klr5kY4AAAAJ', 'interests': 'Cyber Security, Wireless Networks, Wireless Security, Internet of Things, Cloud Computing Security', 'picture_url': 'https://scholar.google.com/citations?view_op=view_photo&user=Klr5kY4AAAAJ&citpid=20', 'i10index': 43}, {'name': 'Arjan Durresi', 'affiliation': 'Indiana University', 'total_citations': 3915, 'hindex': 30, 'scopus_url': 'https://www.scopus.com/authid/detail.uri?partnerID=HzOxMe3b&authorId=56271207400&origin=inward', 'scholar_url': 'https://scholar.google.com/citations?user=MrVb9FkAAAAJ', 'interests': 'Network Architectures and Protocols, Security, Trust Management', 'picture_url': 'https://scholar.google.com/citations?view_op=view_photo&user=MrVb9FkAAAAJ&citpid=3', 'i10index': 91}, {'name': 'Suleman Khan', 'affiliation': 'University of Malaya, Centre for Mobile Cloud Computing Research (C4MCCR)', 'total_citations': 269, 'hindex': 10, 'scopus_url': 'https://www.scopus.com/authid/detail.uri?partnerID=HzOxMe3b&authorId=56045629300&origin=inward', 'scholar_url': 'https://scholar.google.com/citations?user=UMSsOboAAAAJ', 'interests': 'Software Defined Networks, Network Forensics, Network Security, Mobile Cloud Computing, IoT', 'picture_url': 'https://scholar.google.com/citations?view_op=view_photo&user=UMSsOboAAAAJ&citpid=3', 'i10index': 10}, {'name': 'Abdullah Gani', 'affiliation': 'University of Malaya, Centre for Mobile Cloud Computing Research (C4MCCR)', 'total_citations': 4687, 'hindex': 34, 'scopus_url': 'https://www.scopus.com/authid/detail.uri?partnerID=HzOxMe3b&authorId=7003355320&origin=inward', 'scholar_url': 'https://scholar.google.com/citations?user=5iDbwdsAAAAJ', 'interests': 'Machine learning, wireless, networking, mobile cloud computing, Big Data', 'picture_url': 'https://scholar.google.com/citations?view_op=view_photo&user=5iDbwdsAAAAJ&citpid=3', 'i10index': 99}, {'name': 'Ainuddin Wahid Abdul Wahab', 'affiliation': 'University of Malaya, Faculty of Computer Science and Information Technology', 'total_citations': 533, 'hindex': 12, 'scopus_url': 'https://www.scopus.com/authid/detail.uri?partnerID=HzOxMe3b&authorId=55935556300&origin=inward', 'scholar_url': 'https://scholar.google.com/citations?user=DY8bVx4AAAAJ', 'interests': 'Digital Forensics, Information Security, Information Hiding', 'picture_url': 'https://scholar.google.com/citations?view_op=view_photo&user=DY8bVx4AAAAJ&citpid=3', 'i10index': 18}, {'name': 'Muhammad Khurram Khan', 'affiliation': 'King Saud University, Center of Excellence in Information Assurance', 'total_citations': 5144, 'hindex': 36, 'scopus_url': 'https://www.scopus.com/authid/detail.uri?partnerID=HzOxMe3b&authorId=8942252200&origin=inward', 'scholar_url': 'https://scholar.google.com/citations?user=99LlvYUAAAAJ', 'interests': 'Cybersecurity, Digital Authentication, Biometrics, Multimedia Security, Technological Innovation Management', 'picture_url': 'https://scholar.google.com/citations?view_op=view_photo&user=99LlvYUAAAAJ&citpid=2', 'i10index': 129}, {'name': 'Juan Felipe Botero', 'affiliation': 'Universidad de Antioquia', 'total_citations': 1065, 'hindex': 12, 'scopus_url': 'https://www.scopus.com/authid/detail.uri?partnerID=HzOxMe3b&authorId=35186051500&origin=inward', 'scholar_url': 'https://scholar.google.com/citations?user=Ljd3pb0AAAAJ', 'interests': 'Network Virtualization, Virtual Network Embedding, Mathematical Programming, Future Internet', 'picture_url': 'https://scholar.google.com/citations?view_op=view_photo&user=Ljd3pb0AAAAJ&citpid=2', 'i10index': 13}, {'name': 'Puneet Sharma', 'affiliation': 'Hewlett Packard Laboratories', 'total_citations': 12213, 'hindex': 43, 'scopus_url': 'https://www.scopus.com/authid/detail.uri?partnerID=HzOxMe3b&authorId=56856337800&origin=inward', 'scholar_url': 'https://scholar.google.com/citations?user=gzzsQxAAAAAJ', 'interests': 'Computer Newtorks, SDN, NFV, Wireless, Mobility', 'picture_url': 'https://scholar.google.com/citations?view_op=view_photo&user=gzzsQxAAAAAJ&citpid=2', 'i10index': 249}, {'name': 'Yongli Zhao', 'affiliation': 'Beijing University of Posts and Telecommunications, State Key Laboratory of Information Photonics and Optical Communications', 'total_citations': 1653, 'hindex': 20, 'scopus_url': 'https://www.scopus.com/authid/detail.uri?partnerID=HzOxMe3b&authorId=56447285300&origin=inward', 'scholar_url': 'https://scholar.google.com/citations?user=5v7basUAAAAJ', 'interests': 'Optical networking, SDN, Virtualization, 5G', 'picture_url': 'https://scholar.google.com/citations?view_op=view_photo&user=5v7basUAAAAJ&citpid=2', 'i10index': 50}, {'name': 'Qi Qi', 'affiliation': 'Beijing University of Posts and Telecommunications, State Key Laboratory of Networking and Switching Technology', 'total_citations': 294, 'hindex': 8, 'scopus_url': 'https://www.scopus.com/authid/detail.uri?partnerID=HzOxMe3b&authorId=14058739100&origin=inward', 'scholar_url': 'https://scholar.google.com/citations?user=odjSydQAAAAJ', 'interests': 'Computer Vision, Texture Classification and Feature Design', 'picture_url': 'https://scholar.google.com/citations?view_op=view_photo&user=odjSydQAAAAJ&citpid=2', 'i10index': 6}]
 
 if __name__ == '__main__':
     app.run()
